@@ -31,6 +31,8 @@ rm( list = ls() )
 
 - 행렬 생성
 
+  **`matrix ( 변수명, nrow = 행 개수, ncol = 열 개수 )`**
+
   ```R
   # matrix ( 변수명, nrow = 행 개수, ncol = 열 개수 )
   
