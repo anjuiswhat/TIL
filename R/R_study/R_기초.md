@@ -1,6 +1,6 @@
 # R 기초
 
-#### 
+
 
 ## 저장된 변수 및 오브젝트 관리
 
@@ -182,8 +182,6 @@ str(dataframe_ex)
   Error in data.frame(ID, SEX, AGE, AREA) : 
     arguments imply differing number of rows: 10, 8
   ````
-
-
 
 - 하지만 어떤 변수의 data 개수 중 일부가 부족한게 아니라, 단 1개만 존재할 경우에는
 
