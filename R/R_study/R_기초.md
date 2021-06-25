@@ -29,7 +29,7 @@ rm( list = ls() )
 
 - 단일형 data set (한 가지 data type 만 사용 가능)
 
-- 행렬 생성    **`matrix ( 변수명, nrow = 행 개수, ncol = 열 개수 )`**
+- 행렬 생성
 
   ```R
   # matrix ( 변수명, nrow = 행 개수, ncol = 열 개수 )
