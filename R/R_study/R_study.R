@@ -38,8 +38,6 @@ length(x5)
 length(ex_vector1)
 
 
-
-
 # 저장되어 있는 변수들을 모두 출력
 ls()
 
@@ -98,14 +96,31 @@ AREA <- c("서울", "경기", "제주", "서울", "서울", "서울", "경기", 
 # 변수를 포함한 데이터 프레임 구조로 dataframe_ex 데이터 세트에 저장
 dataframe_ex <- data.frame(ID, SEX, AGE, AREA)
 
-dataframe_ex # dataframe_ex 조회
+# dataframe_ex 조회
+dataframe_ex 
 
-str(dataframe_ex) # 데이터프레임 속성 확인
+# 데이터프레임 속성 확인
+str(dataframe_ex) 
 
 # dataframe 으로 dataset 을 구성할 때는
 # 각 변수에 들어있는 관측치의 개수가 동일해야만 dataframe() 함수를 적용할 수 있다.
 # 예를 들어 위의 예제에서 다른 변수들은 data 개수가 10개인데 AGE 의 데이터가 8개라면 오류가 발생한다.
 
+ID <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+SEX <- c("F", "M", "F", "M", "M", "F", "F", "F", "M", "F")
+AGE <- c(50, 40, 28, 50, 27, 23, 56, 47)
+AREA <- c("서울", "경기", "제주", "서울", "서울", "서울", "경기", "서울", "인천", "경기")
+
+data.frame(ID, SEX, AGE, AREA)
+
 # 하지만 변수의 data 가 일부 부족한게 아니라 단 1개만 존재할 경우에는
 # 변수들간의 data 의 개수가 맞지 않더라도
 # 첫번째 data 1개가 다음 행들을 자동으로 채워서 dataframe 을 완성하게 된다.
+
+
+ID <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+SEX <- c("F", "M", "F", "M", "M", "F", "F", "F", "M", "F")
+AGE <- c(50)
+AREA <- c("서울", "경기", "제주", "서울", "서울", "서울", "경기", "서울", "인천", "경기")
+
+data.frame(ID, SEX, AGE, AREA)
