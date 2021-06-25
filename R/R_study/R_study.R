@@ -37,16 +37,32 @@ length(x2)
 length(x5)
 length(ex_vector1)
 
+
+
+
+# 저장되어 있는 변수들을 모두 출력
+ls()
+
+# 인수로 주어지는 오브젝트 삭제
 rm()
 
-rm(list = ls())
+# 현재 저장되어 있는 모든 변수를 삭제
+# rm() 으로 일일히 삭제해도 되지만 한꺼번에 지우고 싶을땐
+# rm() 과 ls()의 list 를 결합한다.
+rm( list = ls() )
 
 
+# 행렬 생성
+# matrix( 변수명, nrow = 행 개수, ncol = 열 개수 )
 
+x <- c(1, 2, 3, 4, 5, 6)
+matrix(x, nrow = 2, ncol = 3)
+matrix(x, nrow = 3, ncol = 2)
 
-
-
-
+# 행렬 생성 시, 배치순서 변경: 'byrow = T' 옵션 추가
+x <- c(1, 2, 3, 4, 5, 6)
+matrix(x, nrow = 2, ncol = 3)
+matrix(x, nrow = 2, ncol = 3, byrow = T)
 
 
 
