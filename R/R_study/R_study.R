@@ -125,4 +125,8 @@ AREA <- c("서울", "경기", "제주", "서울", "서울", "서울", "경기", 
 
 data.frame(ID, SEX, AGE, AREA)
 
+install.packages("readxl")
+library(readxl)
 
+ex <- read_excel("R_study/HelloR-master_(source)/Data/data_ex.xls")
+View(ex)
