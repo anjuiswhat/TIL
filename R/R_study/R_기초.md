@@ -212,3 +212,7 @@ str(dataframe_ex)
   10 10   F  50 경기
   ```
 
+
+
+## View() 함수
+
