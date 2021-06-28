@@ -30,7 +30,46 @@ typeof()
 mode()
 
 
-typeof(x)
+
+
+
+sv <- c(100:200)
+sv
+
+sv[10]
+head(sv,10)
+tail(sv, 10)
+
+sv[sv %%2 ==1]
+
+
+sv[sv %%3 ==1]
+
+
+d.20 <- head(sv, 20)
+d.20
+
+d.20[c(-5)]
+
+
+d.20[c(-5, -7, -9)]
+
+
+?month.name
+absent <- c(10,8,14,15,9,10,15,12,9,7,8,7)
+
+names(absent) <- month.name
+absent
+
+absent['May']
+absent[absent.name='May']
+
+
+
+
+
+
+
 
 
 
