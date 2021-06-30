@@ -130,3 +130,42 @@ library(readxl)
 
 ex <- read_excel("R_study/HelloR-master_(source)/Data/data_ex.xls")
 View(ex)
+
+
+class(iris)
+str(iris)
+
+levels(iris$Species)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+sex <- factor("m", c("m", "f"))
+sex
+
+
+
+
+
+
+
+
+
+
+
