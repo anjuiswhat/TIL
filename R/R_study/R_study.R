@@ -171,5 +171,24 @@ tmp.mat$Sepal.Length[is.na(tmp.mat$Sepal.Length)] <- mean(tmp.mat$Sepal.Length[p
 tmp.mat
 iris
 
+x <- c(1, 2, 3, 4, 5)
+x-3
+
+
+
+x <- c(1,3,4)
+names(x) <- c("kim", "seo", "park")
+x
+
+x['kim']
+
+
+c( 1, 2, 3, c(1, 2, 3) )
+
+
+
+
+
+
 
 
