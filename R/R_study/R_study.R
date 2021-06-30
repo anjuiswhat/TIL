@@ -138,6 +138,7 @@ str(iris)
 levels(iris$Species)
 
 
+iris.df
 
 
 
@@ -146,14 +147,13 @@ levels(iris$Species)
 
 
 
+mean(iris$Sepal.Length)
 
+(iris$Sepal.Length$NA) <- mean(iris$Sepal.Length)
 
+iris$Sepal.Length <- ifelse( is.na(iris$Sepal.Length), mean(iris$Sepal.Length, na.rm=T),iris$Sepal.Length) 
 
-
-
-
-
-
+table(is.na(iris$Sepal.Length))
 
 
 sex <- factor("m", c("m", "f"))
@@ -164,8 +164,12 @@ sex
 
 
 
-
-
+tmp.mat <- iris
+tmp.mat[1,1] <- NA
+pos <- tmp.mat$'Species' == 'setosa'
+tmp.mat$Sepal.Length[is.na(tmp.mat$Sepal.Length)] <- mean(tmp.mat$Sepal.Length[pos], na.rm=T)
+tmp.mat
+iris
 
 
 
