@@ -118,3 +118,30 @@ grep('^b+', txtVec, value = T, ignore.case = T)
 # gsub()
 # 
 
+
+
+
+
+
+tmpList <- list(name='jslim', height = 175)
+tmpList
+
+tmpList$name
+
+tmpList$height
+
+mode(tmpList)
+class(tmpList)
+
+tmpList <- list(name='jslim', height = c(1,2,23,4))
+tmpList
+
+mode(tmpList$name)
+class(tmpList$height)
+
+tmpList[1]
+
+tmpList <- list(1:4, rep(3:5), "dd")
+tmpList
+tmpList[1] 
+tmpList[[1]] 
