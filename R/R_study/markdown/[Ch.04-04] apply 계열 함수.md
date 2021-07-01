@@ -39,7 +39,7 @@ apply(
 
 # iris 데이터의 Sepal.Length, Sepal.Width, Petal.Length, Petal.Width 컬럼의 합 구하기
 
-## iris 데이터의 대략적인 구조 확인
+## 1) iris 데이터의 대략적인 구조 확인
 > head(iris)
   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 1          5.1         3.5          1.4         0.2  setosa
@@ -56,7 +56,7 @@ apply(
  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
  $ Species     : Factor w/ 3 levels "setosa","versicolor",..: 1 1 1 1 1 1 1 1 1 1 ...
 
-## 1번째 컬럼부터 4번째 컬럼까지의 각 컬럼의 합 계산
+## 2) 1번째 컬럼부터 4번째 컬럼까지의 각 컬럼의 합 계산
 > apply( iris[,1:4], 2, sum )
 Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
        876.5        458.6        563.7        179.9 
@@ -172,11 +172,9 @@ $Petal.Width
 
 
 
-### 리스트를 다른 데이터 타입으로 변환하는 함수
+### unlist( ) : 리스트 구조를 벡터로 변환
 
 리스트보다는 벡터 또는 데이터 프레임이 사용하기에 직관적인 면이 있으므로 lapply( )의 결과를 벡터 또는 데이터 프레임으로 변환할 필요가 있다.
-
-#### unlist : 리스트 구조를 벡터로 변환
 
 ```R
 unlist(
@@ -203,110 +201,102 @@ unlist(
 
 
 
+### 데이터 프레임을 처리한 리스트 결과를 다시 데이터 프레임으로 변환하는 경우
 
+#### unlist( ) → matrix( ) → as.data.frame( ) 단계로 변환
 
+이 경우 아래와 같은 순서로 처리한다.
 
-
-
-
-
-
-#### do.call
-
-
-
-
-
-데이터 프레임에도 곧바로 lapply( )를 적용할 수 있다. 아이리스 데이터의 숫자형 데이터들에 대한 평균을 구해보자.
+1. unlist( )를 통해 리스트를 벡터로 변환한다.
+2. matrix( )를 사용해 벡터를 행렬로 변환한다.
+3. as.data.frame( )을 사용해 행렬을 데이터 프레임으로 변환한다.
+4. names( )를 사용해 리스트로부터 변수명을 얻어와 데이터 프레임의 각 컬럼에 이름을 부여한다.
 
 ```R
-> lapply(iris[,1:4], mean)
-$Sepal.Length
-[1] 5.843333
+# iris 데이터의 각 컬럼에 대한 평균을 lapply( )로 구한 뒤, 이 결과를 다시 데이터 프레임으로 변환
 
-$Sepal.Width
-[1] 3.057333
+> d <- as.data.frame( matrix( unlist( lapply(iris[, 1:4], mean) ), ncol=4, byrow=TRUE ) )
 
-$Petal.Length
-[1] 3.758
+> names(d) <- names(iris[,1:4])
 
-$Petal.Width
-[1] 1.199333
-```
-
-앞서 설명했듯이 각 컬럼의 평균은 colMeans( )로도 계산할 수 있다.
-
-```R
-> colMeans(iris[, 1:4])
-Sepal.Length  Sepal.Width  Petal.Length  Petal.Width
-    5.843333     3.057333      3.758000     1.199333
-```
-
-
-
-
-
-
-
-데이터 프레임을 처리한 결과를 리스트로 얻은 뒤 해당 리스트를 다시 데이터 프레임으로 변환할 필요가 있을 수 있다. 이 변환은 몇 단계를 거쳐서 처리해야 한다.
-
-**1.** unlist( )를 통해 리스트를 벡터로 변환한다.
-
-**2.** matrix( )를 사용해 벡터를 행렬로 변환한다.
-
-**3.** as.data.frame( )[**3**](https://thebook.io/006723/ch04/04/02-02/#footnote-101232-3)을 사용해 행렬을 데이터 프레임으로 변환한다.
-
-**4.** names( )를 사용해 리스트로부터 변수명을 얻어와 데이터 프레임의 각 컬럼에 이름을 부여한다.
-
-다음은 아이리스 데이터의 각 컬럼에 대한 평균을 lapply( )로 구한 뒤 이 결과를 다시 데이터 프레임으로 변환한 예다.
-
-```R
-> d <- as.data.frame(matrix(unlist(lapply(iris[, 1:4], mean)),
-+                           ncol=4, byrow=TRUE))
-> names(d) <- names(iris[, 1:4])
 > d
-  Sepal.Length  Sepal.Width  Petal.Length  Petal.Width
-1     5.843333     3.057333         3.758     1.199333
+  Sepal.Length Sepal.Width Petal.Length Petal.Width
+1     5.843333    3.057333        3.758    1.199333
 ```
 
-또는 do.call( )을 사용해 변환할 수도 있다. 지금 살펴보는 예제의 경우에는 lapply( )가 반환한 리스트 내의 각 컬럼별 계산 결과가 들어 있다. 따라서 이를 새로운 데이터 프레임의 컬럼들로 합치기 위해 cbind( )를 사용한다. 다음 코드는 do.call( )을 사용해 lapply( )의 결과로 나온 리스트 내 요소 각각을 cbind( )의 인자들로 넘겨준다.
+
+
+##### unlist( ) 사용 시 문제점
+
+unlist( )를 사용하여 리스트를 벡터로 변환할 경우, 한 가지 문제가 있다.
+
+unlist( )는 벡터를 반환하는데, 벡터에는 한 가지 데이터 타입만 저장할 수 있기 때문에 변환 과정에서 하나의 데이터 타입으로 데이터가 모두 형 변환된다.
 
 ```R
-> data.frame(do.call(cbind, lapply(iris[, 1:4], mean)))
-  Sepal.Length  Sepal.Width  Petal.Length  Petal.Width
-1     5.843333     3.057333         3.758     1.199333
-```
+# unlist() 사용 시 문제점
 
-앞에서 살펴본 두 가지 방법 중 unlist( )후 matrix( )를 거쳐 데이터 프레임으로 변환하는 방법에는 한 가지 문제가 있다. unlist( )는 벡터를 반환하는데, 벡터에는 한 가지 데이터 타입만 저장할 수 있기 때문에 변환 과정에서 하나의 데이터 타입으로 데이터가 모두 형 변환되어버리기 때문이다.
-
-다음 예에서는 문자열과 숫자가 혼합된 경우 unlist( )가 문자열을 모두 엉뚱한 값으로 바꿔버리는 것을 볼 수 있다.
-
-```R
 > x <- list(data.frame(name="foo", value=1),
 +           data.frame(name="bar", value=2))
+> x
+[[1]]
+  name value
+1  foo     1
+
+[[2]]
+  name value
+1  bar     2
+
 > unlist(x)
- name value name value
-    1     1    1     2
+ name value  name value 	# 리스트 -> 벡터 변환 과정에서 벡터의 성질로 인해
+"foo"   "1" "bar"   "2" 	# 숫자 데이터가 전부 문자열로 바뀐다!!!!
 ```
 
-따라서 데이터 타입이 혼합된 경우에는 do.call( )을 사용해야 한다. 다음 예에서는 리스트의 각 요소가 한 행에 해당하므로 rbind를 호출했다.
+
+
+#### do.call : 리스트로 주어진 인자에 함수를 적용하여 함수 호출 결과를 반환
+
+위에서 살펴본 unlist( )의 문제를 피하기 위해 데이터 타입이 혼합된 경우에는 do.call( )을 사용해 변환할 수도 있다.
+
+지금 살펴보는 예제의 경우에는 lapply( )가 반환한 리스트 내의 각 컬럼별 계산 결과가 들어 있다. 따라서 이를 새로운 데이터 프레임의 컬럼들로 합치기 위해 cbind( )를 사용한다. 다음 코드는 do.call( )을 사용해 lapply( )의 결과로 나온 리스트 내 요소 각각을 cbind( )의 인자들로 넘겨준다.
 
 ```R
+do.call(
+  what,  # 호출할 함수
+  args,  # 함수에 전달할 인자의 리스트
+)
+
+---- < example > ---------------------------------------------------------------
+
 > x <- list(data.frame(name="foo", value=1),
 +           data.frame(name="bar", value=2))
-> do.call(rbind, x)
+
+> do.call(rbind, x) 	# 리스트의 각 요소가 한 행에 해당하므로 rbind 사용
   name value
 1  foo     1
 2  bar     2
+
+
+# iris 데이터의 각 컬럼에 대한 평균을 lapply( )로 구한 뒤, 이 결과를 다시 데이터 프레임으로 변환
+
+## 1) do.call() 사용하여 컬럼들을 cbind 로 결합, matrix 생성 
+> do.call( cbind, lapply(iris[, 1:4], mean) )
+     Sepal.Length Sepal.Width Petal.Length Petal.Width
+[1,]     5.843333    3.057333        3.758    1.199333
+> x <- do.call( cbind, lapply(iris[, 1:4], mean) )
+> is.matrix(x)
+[1] TRUE
+
+## 2) 데이터 프레임으로 변환
+> data.frame( do.call( cbind, lapply(iris[, 1:4], mean) ) )
+  Sepal.Length Sepal.Width Petal.Length Petal.Width
+1     5.843333    3.057333        3.758    1.199333
 ```
 
-이것만으로 끝이라면 좋겠지만 아쉽게도 do.call(rbind, …) 방식은 속도가 느리다는 단점이 있다. 따라서 대량의 데이터를 변환해야 한다면 ‘5장. 데이터 조작 II’에서 설명할 rbindlist( )를 사용해야 한다.
 
 
+##### do.call( ) 사용 시 문제점
 
-
-
-
+do.call(rbind, …) 방식은 속도가 느리다는 단점이 있다. 따라서 대량의 데이터를 변환해야 한다면 ‘5장. 데이터 조작 II’에서 설명할 rbindlist( )를 사용해야 한다.
 
 
 
