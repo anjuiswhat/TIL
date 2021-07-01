@@ -298,19 +298,111 @@ do.call(
 
 do.call(rbind, …) 방식은 속도가 느리다는 단점이 있다. 따라서 대량의 데이터를 변환해야 한다면 ‘5장. 데이터 조작 II’에서 설명할 rbindlist( )를 사용해야 한다.
 
-
-
 # sapply( )
 
+- sapply( )는 행렬, 벡터 등의 데이터 타입으로 결과를 반환하는 특징이 있는 함수다.
+- 벡터, 리스트, 표현식, 데이터 프레임 등에 함수를 적용하고 그 결과를 벡터 또는 행렬로 반환한다.
+- 반환 값은 함수의 결과가 길이 1인 벡터들이면 벡터, 길이가 1보다 큰 벡터들이면 행렬이다.
+
+### sapply( ) 사용 시 주의점
+
+- sapply( )는 한 가지 타입만 저장 가능한 데이터 타입인 벡터 또는 행렬을 반환하므로, sapply( )에 인자로 준 함수의 반환 값에 여러 가지 데이터 타입이 섞여 있으면 안 된다.
+- 만약 각 컬럼에 대해 수행한 함수의 결과 데이터 타입이 서로 다르다면, 리스트를 반환하는 lapply( )나 리스트 또는 데이터 프레임을 반환할 수 있는 plyr 패키지(5장에서 설명)를 사용해야 한다.
+
+```R
+sapply(
+  X,    # 벡터, 리스트, 표현식 또는 데이터 프레임
+  FUN,  # 적용할 함수
+  ...,  # 추가 인자. 이 인자들은 FUN에 전달된다.
+)
+
+---- < example > ---------------------------------------------------------------
+
+# sapply( )에 인자로 주어진 함수의 출력이 길이가 1인 벡터들인 경우
+
+## iris 데이터에서 각 컬럼의 평균을 구하여 벡터로 반환
+> ( x <- sapply(iris[, 1:4], mean) )
+Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+    5.843333     3.057333     3.758000     1.199333 
+
+> class(x)	# claas 확인 결과, 숫자를 저장한 벡터
+[1] "numeric"
+
+## iris 데이터에서 각 컬럼의 데이터 타입을 구하여 벡터로 반환
+> ( y <- sapply(iris, class) )
+Sepal.Length  Sepal.Width Petal.Length  Petal.Width      Species 
+   "numeric"    "numeric"    "numeric"    "numeric"     "factor" 
+
+> class(y)
+[1] "character"
+
+
+# sapply( )에 인자로 주어진 함수의 출력이 길이가 1보다 큰 벡터들인 경우
+
+## iris 의 숫자형 값들에 대해 각 값이 3보다 큰지 여부를 판단하여 행렬로 반환
+> z <- sapply( iris[, 1:4], function(x) { x > 3 } )
+
+> head(z)
+     Sepal.Length Sepal.Width Petal.Length Petal.Width
+[1,]         TRUE        TRUE        FALSE       FALSE
+[2,]         TRUE       FALSE        FALSE       FALSE
+[3,]         TRUE        TRUE        FALSE       FALSE
+[4,]         TRUE        TRUE        FALSE       FALSE
+[5,]         TRUE        TRUE        FALSE       FALSE
+[6,]         TRUE        TRUE        FALSE       FALSE
+
+> class(z)
+[1] "matrix" "array" 
+```
 
 
 
+### sapply( )에서 반환된 벡터에 as.data.frame( ) 적용 시 주의점
 
+t( ) 함수를 사용하여 벡터의 행과 열을 바꿔주는 과정이 필요하다
 
+```R
+> as.data.frame(x)
+                    x
+Sepal.Length 5.843333	# 단순하게 as.data.frame() 만 적용하면 
+Sepal.Width  3.057333	# 생각했던 데이터 프레임이 나오지 않는다.
+Petal.Length 3.758000
+Petal.Width  1.199333
 
-# tapply( )
+> as.data.frame(t(x))	# t() 함수를 사용하여 행과 열을 바꿔야 함.
+  Sepal.Length Sepal.Width Petal.Length Petal.Width
+1     5.843333    3.057333        3.758    1.199333
+```
 
 
 
 # mapply( )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
