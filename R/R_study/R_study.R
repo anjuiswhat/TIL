@@ -188,7 +188,281 @@ c( 1, 2, 3, c(1, 2, 3) )
 
 
 
+d <- matrix(1:9, ncol=3)
+d
+
+apply(d, 1, sum)
+apply(d, 2, sum)
+
+
+
+head(iris)
+str(iris)
+
+
+
+apply(iris[,1:4], 2, sum)
+colSums(iris[, 1:4])
+
+
+(x <- list(a=1:3, b=4:6))
+
+
+
+lapply( 1:3, function(x){ x*2 } )
+
+
+result <- lapply( 1:3, function(x){ x*2 } )
+result
+result[1]
 
 
 
 
+( result <- lapply(1:3 , function (x) { x*2 }) )
+unlist(result)
+
+
+
+
+lapply(iris[,1:4], mean)
+
+
+
+colMeans(iris[, 1:4])
+
+
+
+
+
+
+
+
+
+
+
+
+
+d <- matrix(1:9, ncol=3)
+
+
+r1 <- apply( iris[,1:4], 2, sum )
+str(r1)
+class(r1)
+
+
+
+
+d <- as.data.frame( 
+                    matrix(
+                            unlist( 
+                                    lapply(iris[, 1:4], mean)
+                                    ),
+                            ncol=4, byrow=TRUE)
+                    )
+
+
+
+
+d <- as.data.frame( matrix( unlist( lapply(iris[, 1:4], mean) ), ncol=4, byrow=TRUE ) )
+names(d) <- names(iris[,1:4])
+d
+
+
+
+x <- list( data.frame(name="foo", value=1), data.frame(name="bar", value=2) )
+x
+unlist(x)
+
+
+
+x <- list(data.frame(name="foo", v1=1, v2='a'), data.frame(name="bar", v1=2, v2='b'))
+x
+y <- unlist(x)
+y
+
+data.frame( do.call( cbind, lapply(iris[, 1:4], mean) ) )
+
+do.call( cbind, lapply(iris[, 1:4], mean) )
+x <- do.call( cbind, lapply(iris[, 1:4], mean) )
+is.matrix(x)
+
+
+x <- list( data.frame(name="foo", value=1), data.frame(name="bar", value=2) )
+
+x <- list(data.frame(name="foo", value=1),
+          data.frame(name="bar", value=2))
+do.call(rbind, x)
+
+
+( x <- lapply(iris[, 1:4], mean) )
+class(x)
+
+( x <- sapply(iris[, 1:4], mean) )
+class(x)
+as.data.frame(x)
+as.data.frame(t(x))
+
+
+              
+
+( y <- sapply(iris, class) )
+class(y)
+
+z <- sapply(iris[, 1:4], function(x) { x > 3 })
+
+z <- sapply( iris[, 1:4], function(x) { x > 3 } )
+head(z)
+class(z)
+
+
+
+y <- sapply(iris[, 1:4], function(x) { x > 3 })
+class(y)
+head(y)
+
+tapply(1:10, rep(1, 10), sum)
+tapply(1:10, 1:10 %% 2 == 1, sum)
+
+
+
+tapply(iris$Sepal.Length, iris$Species, mean)
+
+
+m <- matrix(1:8,
+            ncol=2,
+            dimnames = list(c("spring", "summer", "fall", "winter"),
+                            c("male", "female")))
+m
+tapply(m, list(c(1,1,2,2,1,1,2,2),
+               c(1,1,1,1,2,2,2,2)), sum)
+
+( x <- list(name="foo", height=c(1, 3, 5)) )
+x[1]
+x[2]
+
+
+
+x$name
+x[[1]]
+
+
+( x <- list(name="foo",
+            height=c(1, 3, 5)) )
+
+
+
+list( a=list(val=c(1, 2, 3)),
+      b=list(val=c(1, 2, 3, 4)))
+
+
+matrix(c(1, 2, 3, 4, 5, 6, 7, 8, 9), nrow=2, byrow=TRUE)
+
+( x <- matrix(1:9, ncol=3) )
+
+
+dimnames(x) <- list(c("r1", "r2", "r3"),
+                    c("c1", "c2", "c3"))
+x
+dimnames(x)
+
+
+
+rownames(x) <- c("r1", "r2", "r3")
+x
+rownames(x)
+
+
+colnames(x) <- c("c1", "c2", "c3")
+x
+colnames(x)
+
+
+
+
+x <- matrix(1:9, ncol=3)
+x
+
+x[1:2,]
+
+x[c(1, 3), c(1, 3)]
+
+( x <- matrix(1:9, nrow = 3,
+              dimnames = list(c("r1", "r2", "r3"),
+                              c("c1", "c2", "c3"))) )
+x["r1", ]
+
+
+( x <- matrix(c(1:4), ncol=2) )
+solve(x)
+x %*% solve(x)
+
+( x <- matrix(1:4, ncol=2) )
+t(x)
+
+
+( x <- matrix(1:6, ncol=3) )
+dim(x)
+dim(x) <- c(3,2)
+dim(x)
+
+data.frame(...,
+           dfdf
+           )
+
+
+( x <- array(1:12, dim = c(2, 2, 3)) )
+
+x[, , 2]
+
+
+?data.frame
+( d <- data.frame(x=c(1, 2, 3, 4, 5),
+                  y=c(2, 4, 6, 8, 10),
+                  z=c('M', 'F', 'M', 'F', 'M'),
+                  stringsAsFactors = TRUE) )
+str(d)
+
+
+ID <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+SEX <- c("F", "M", "F", "M", "M", "F", "F", "F", "M", "F")
+AGE <- c(50)
+AREA <- c("서울", "경기", "제주", "서울", "서울", "서울", "경기", "서울", "인천", "경기")
+d <- data.frame(ID, SEX, AGE, AREA)
+
+View(d)
+
+( d <- data.frame(x=c(1, 2, 3, 4, 5),
+                  y=c(2, 4, 6, 8, 10),
+                  z=c('M', 'F', 'M', 'F', 'M'),
+                  stringsAsFactors = TRUE) )
+d$x <- 6:10
+d
+d$w <- c("A", "B", "C", "D", "E")
+d
+str(d)
+
+( d <- data.frame(x=c(1, 2, 3, 4, 5),
+                  y=c(2, 4, 6, 8, 10)) )
+d[1, ]
+?data.frame[]
+
+
+( d <- data.frame(x=c(1, 2, 3, 4, 5),
+                  y=c(2, 4, 6, 8, 10),
+                  z=c('M', 'F', 'M', 'F', 'M'),
+                  stringsAsFactors = TRUE) )
+d[1, ]
+d[1, 2]
+d[c(1,3), 2]
+d[-1, -2]
+d[ , c("x", "y")]
+d[ , c("x")]
+d[ , c("x"), drop=FALSE]
+
+
+( d <- data.frame(a=1:3,
+                  b=4:6,
+                  c=7:9) )
+d[ , names(d) %in% c("b", "c")]
+d[, !names(d) %in% c("a")]
