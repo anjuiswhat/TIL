@@ -65,11 +65,7 @@ Sepal.Length  Sepal.Width Petal.Length  Petal.Width
        876.5        458.6        563.7        179.9 
 ```
 
- 
 
-
-
- 
 
 ### `rowSums()`, `rowMeans()`, `colSums()`, `colMeans()`
 
@@ -540,7 +536,8 @@ Sepal.Length Sepal.Width Petal.Length Petal.Width
     5.843333    3.057333     3.758000    1.199333
 
 # mapply( )의 인자로 iris[, 1:4]가 주어졌다. 따라서 mapply( )에는 iris의 모든 행이 나열되어 인자로 주어졌다고 볼 수 있다.
-# mapply( )가 주어진 인자들을 하나씩 묶어 mean( )을 호출해주므로 각 행의 첫 번째 컬럼끼리 묶어 평균을 구하고, 다시 두 번째 컬럼끼리 묶어 평균을 구하는 작업을 반복하게 된다. 그 결과 모든 컬럼의 평균이 계산된다.
+# mapply( )가 주어진 인자들을 하나씩 묶어 mean( )을 호출해주므로 각 행의 첫 번째 컬럼끼리 묶어 평균을 구하고,
+# 다시 두 번째 컬럼끼리 묶어 평균을 구하는 작업을 반복하게 된다. 그 결과 모든 컬럼의 평균이 계산된다.
 ```
 
 
