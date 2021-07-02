@@ -8,7 +8,7 @@ R에는 벡터, 행렬 또는 데이터 프레임에 임의의 함수를 적용�
 
 ## `apply()`
 
-- apply( )는 행렬의 행 또는 열 방향으로 특정 함수를 적용하는 데 사용한다.
+- `apply( )`는 행렬의 행 또는 열 방향으로 특정 함수를 적용하는 데 사용한다.
 
 - 배열 또는 행렬에 함수를 MARGIN 방향으로 적용하여 결과를 벡터, 배열 또는 리스트로 반환한다.
 
@@ -69,7 +69,7 @@ Sepal.Length  Sepal.Width Petal.Length  Petal.Width
 
 
 
-### rowSums( ), rowMeans( ), colSums( ), colMeans( )
+### `rowSums()`, `rowMeans( )`, `colSums()`, `colMeans()`
 
 행 또는 열의 합 또는 평균의 계산은 빈번히 사용되므로 rowSums( ), rowMeans( ), colSums( ), colMeans( ) 함수가 미리 정의되어 있다.
 
