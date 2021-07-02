@@ -65,7 +65,11 @@ Sepal.Length  Sepal.Width Petal.Length  Petal.Width
        876.5        458.6        563.7        179.9 
 ```
 
-  
+ 
+
+
+
+ 
 
 ### `rowSums()`, `rowMeans()`, `colSums()`, `colMeans()`
 
