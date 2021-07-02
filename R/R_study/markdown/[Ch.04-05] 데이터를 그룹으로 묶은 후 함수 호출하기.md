@@ -122,7 +122,7 @@ order(
 sample(
   x,    # 샘플을 뽑을 데이터 벡터. 만약 길이 1인 숫자 n이 지정되면 1:n에서 샘플이 선택된다.
   size,    # 샘플의 크기
-  replace=FALSE,    # 복원 추출 여부
+  replace=FALSE,    # 복원 추출 여부, 기본값은 FALSE
   prob    # 데이터가 뽑힐 가중치
           # 예를 들어, x=c(1, 2, 3)에서 2개의 샘플을 뽑되
           # 각 샘플이 뽑힐 확률을 50%, 20%, 30%로 하고자 한다면 size=2, prob=c(5, 2, 3)을 지정한다. 
@@ -140,18 +140,20 @@ sample(
 [1] 8 1 6 6 10                     # 복원추출로 인해 6이 2회 추출
 
 
-
+# iris 데이터 프레임의 행을 무작위 순서로 출력
+## NROW(iris) 는 iris 데이터프레임 행의 수로 150 이므로
+## sample(NROW(iris), NROW(iris)) 는 1부터 150까지의 숫자를 150번 무작위 비복원 추출한 것이며,
+## 아래 코드는 iris[ridx, cidx] 에서 ridx 만 지정했으므로 150개의 행을 무작위 순서로 출력한다. 
 
 > iris[ sample( NROW(iris), NROW(iris) ), ]
     Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
-121          6.9         3.2          5.7         2.3  virginica
-99           5.1         2.5          3.0         1.1 versicolor
+146          6.7         3.0          5.2         2.3  virginica
+11           5.4         3.7          1.5         0.2     setosa
+46           4.8         3.0          1.4         0.3     setosa
+125          6.7         3.3          5.7         2.1  virginica
+77           6.8         2.8          4.8         1.4 versicolor
 ...
 ```
-
-
-
-
 
 
 
@@ -181,7 +183,7 @@ sample(
 ```R
 doBy::summaryBy(
   var1 + var2 ~ factor,  # 요약을 수행할 포뮬러
-  data = parent.frame()  # 포뮬러를 적용할 데이터
+  data=parent.frame()  # 포뮬러를 적용할 데이터
 )
 
 -------------------- < example > ------------------------------
@@ -293,5 +295,40 @@ doBy::orderBy(
 ### `sampleBy()`
 
 - sampleBy( )는 데이터를 그룹으로 묶은 후 각 그룹에서 샘플을 추출하는 함수다.
-- 이 함수는 base::sample( )에 대응하므로 함께 알아보도록 하자.
+- 수식에 따라 데이터를 그룹으로 묶은 후 샘플을 추출한다.
+- 반환 값은 데이터 프레임이다.
 
+```R
+doBy::sampleBy(
+  formula,              # ~ 우측에 나열한 이름에 따라 데이터가 그룹으로 묶인다.
+  frac=0.1,             # 추출할 샘플의 비율이며 기본값은 10%
+  replace=FALSE,        # 복원 추출 여부
+  data=parent.frame(),  # 데이터를 추출할 데이터 프레임
+  systematic=FALSE      # 계통 추출(Systematic Sampling)을 사용할지 여부, 기본값은 FALSE
+)
+
+
+# iris 데이터에서 각 Species별로 10%의 데이터를 추출
+# sampleBy( )에서 Species를 지정했으므로 각 종별로 5개씩 데이터가 정확히 샘플로 추출된다.
+
+> sampleBy(~ Species, frac=0.1, data=iris)
+              Sepal.Length Sepal.Width Petal.Length Petal.Width    Species
+setosa.1               5.1         3.5          1.4         0.2     setosa
+setosa.23              4.6         3.6          1.0         0.2     setosa
+setosa.45              5.1         3.8          1.9         0.4     setosa
+setosa.47              5.1         3.8          1.6         0.2     setosa
+setosa.50              5.0         3.3          1.4         0.2     setosa
+versicolor.63          6.0         2.2          4.0         1.0 versicolor
+versicolor.64          6.1         2.9          4.7         1.4 versicolor
+versicolor.83          5.8         2.7          3.9         1.2 versicolor
+versicolor.84          6.0         2.7          5.1         1.6 versicolor
+versicolor.95          5.6         2.7          4.2         1.3 versicolor
+virginica.108          7.3         2.9          6.3         1.8  virginica
+virginica.112          6.4         2.7          5.3         1.9  virginica
+virginica.122          5.6         2.8          4.9         2.0  virginica
+virginica.125          6.7         3.3          5.7         2.1  virginica
+virginica.131          7.4         2.8          6.1         1.9  virginica
+```
+
+- 샘플링은 주어진 데이터를 훈련 데이터(Training Data)와 테스트 데이터(Test Data)로 분리하는 데 유용하게 사용할 수 있다. 훈련 데이터로부터 모델을 만든 뒤 테스트 데이터에 모델을 적용하면 모델의 정확성을 평가할 수 있다.
+- 모델의 정확성을 잘 평가하려면 데이터에서 예측 대상이 되는 값별로 샘플을 균일하게 뽑을 필요가 있다. 예를 들어, 아이리스의 Sepal.Width, Sepal.Length, Petal.Width, Petal.Length로부터 Species를 예측하는 모델을 만드는 경우를 생각해보자. 만약 훈련 데이터에는 setosa만 들어 있고 테스트 데이터에는 vericolor와 virginica만 들어 있다면 제대로 된 모델링과 모델의 평가가 이루어질 수 없다. 평가를 올바르게 하려면 훈련 데이터와 테스트 데이터에 Species 값별로 데이터의 수가 균일한 것이 좋다. 바로 이런 경우에 sampleBy( )가 유용하다.
