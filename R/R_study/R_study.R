@@ -60,15 +60,37 @@ merge(
 ?merge()
 
 
-
-iris
+####################################################
+head(iris)
 
 iris[1,1] = NA
 
 head(iris)
+########################################################
+
+a <- split(iris$Sepal.Length, iris$Species)
 
 
-median(iris$Sepal.Length, na.rm=T)
+
+b <- sapply(a, mean, na.rm=TRUE)
+
+
+
+
+
+
+
+within( iris,
+        { ifelse(
+            is.na(Sepal.Length), b
+        )}
+)
+
+
+
+
+
+
 
 
 
@@ -82,11 +104,6 @@ tapply(
 
 
 
-within(
-    iris,
-    
-    )
-)
 
 
 
@@ -99,11 +116,27 @@ within(
 
 
 
+Sepal.Width
+
+
+search()
 
 
 
 
+attach(iris)
 
+search()
+
+Sepal.Width
+
+
+
+detach(iris)
+
+search()
+
+Sepal.Width
 
 
 
