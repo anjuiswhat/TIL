@@ -1,6 +1,6 @@
+print(paste(1))
 
+str(paste(1))
 
-
-x <- 9
-
-if(x)
+print(1)
+      
