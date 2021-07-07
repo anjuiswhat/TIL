@@ -140,10 +140,13 @@ Sepal.Width
 
 
 
+library(datasets)
+data(USArrests)
+
+head(USArrests)
 
 
-
-
+pairs(USArrests, panel = panel.smooth, main = "USArrests data")
 
 
 
