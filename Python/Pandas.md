@@ -22,7 +22,7 @@ pd.DataFrame( 2차원 배열,
 
 ```python
 # 행 인덱스 변경 ( .index / rename() )
-DF객체.index
+df객체.index
 DF객체.rename( index = { 기존 인덱스 : 새 인덱스, ...} )
 
 # 열 이름 변경 ( .columns / rename() )
