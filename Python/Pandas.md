@@ -22,18 +22,18 @@ pd.DataFrame( 2차원 배열,
 
 ```python
 # 행 인덱스 변경 ( .index / rename() )
-DataFrame객체.index
-DataFrame객체.rename( index = { 기존 인덱스 : 새 인덱스, ...} )
+DF객체.index
+DF객체.rename( index = { 기존 인덱스 : 새 인덱스, ...} )
 
 # 열 이름 변경 ( .columns / rename() )
-DataFrame객체.columns
-DataFrame객체.rename( columns = { 기존 이름 : 새 이름, ...} )
+DF객체.columns
+DF객체.rename( columns = { 기존 이름 : 새 이름, ...} )
 ```
 
 #### 행/열 삭제 :  `.drop`
 
 ```python
-DataFrame객체.drop( 행 인덱스/배열 또는 열 이름/배열
+DF객체.drop( 행 인덱스/배열 또는 열 이름/배열
                     axis = 0,           # 행 옵션은 axis = 0 / 열 옵션은 axis = 1
                     inplace = False )   # 기본값은 False 로 원본 객체는 변경없이 새로운 객체를 반환
                                         # 원본 객체를 직접 변경하려면 inplace = True 로 설정
