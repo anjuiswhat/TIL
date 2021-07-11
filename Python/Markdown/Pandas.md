@@ -1,5 +1,7 @@
 # PART 1 |  Pandas 기본
 
+.
+
 ## 1. Pandas 자료구조
 
 ### 1-1. Series
@@ -23,11 +25,15 @@ pd.DataFrame( 2차원 배열,
 ```python
 # 행 인덱스 변경 ( .index / rename() )
 df객체.index
-df객체.rename( index = { 기존 인덱스 : 새 인덱스, ...} )
+df객체.rename( index = { 기존 인덱스 : 새 인덱스, ...},
+               inplace = False )   # 기본값은 False 로 원본 객체는 변경없이 새로운 객체를 반환
+                                        # 원본 객체를 직접 변경하려면 inplace = True 로 설정)
 
 # 열 이름 변경 ( .columns / rename() )
 df객체.columns
-df객체.rename( columns = { 기존 이름 : 새 이름, ...} )
+df객체.rename( columns = { 기존 이름 : 새 이름, ...},
+               inplace = False )   # 기본값은 False 로 원본 객체는 변경없이 새로운 객체를 반환
+                                        # 원본 객체를 직접 변경하려면 inplace = True 로 설정)
 ```
 
 #### 행/열 삭제 :  `.drop()`
@@ -35,8 +41,7 @@ df객체.rename( columns = { 기존 이름 : 새 이름, ...} )
 ```python
 df객체.drop( 행 인덱스/배열 또는 열 이름/배열
                     axis = 0,           # 행 옵션은 axis = 0 / 열 옵션은 axis = 1
-                    inplace = False )   # 기본값은 False 로 원본 객체는 변경없이 새로운 객체를 반환
-                                        # 원본 객체를 직접 변경하려면 inplace = True 로 설정
+                    inplace = False )    # inplace : 원본 객체에 변경사항 반영할지 결졍하는 옵션
 ```
 
 #### 행 선택 :  `.loc[]`, `.iloc[]`
@@ -101,33 +106,56 @@ df객체[ '추가할 열 이름' ] = 데이터 값
 df객체의 일부분 또는 원소 선택 = 새로운 값
 ```
 
-#### 전치행렬 :  `transpose()`
+#### 전치행렬 :  `.transpose()`
 
 ```python
 df객체.transpose()
 df객체.T
 ```
 
-
+.
 
 ## 2. 인덱스 활용
 
-#### 특정 열을 행 인덱스로 설정 :  `set_index()`
+#### 특정 열을 행 인덱스로 설정 :  `.set_index()`
 
 ```python
-df객체.set_index( '열 이름' )
-df객체.set_index( ['열 이름'] )  # 멀티 인덱스로 바꿀 경우에는 [ '열 이름1', '열 이름2' ]
+df객체.set_index( '열 이름',
+                  inplace = False )    # inplace : 원본 객체에 변경사항 반영할지 결졍하는 옵션
+
+df객체.set_index( ['열 이름'],    # 멀티 인덱스로 바꿀 경우에는 [ '열 이름1', '열 이름2' ]
+                  inplace = False )
 ```
 
-#### 행 인덱스 재배열 :  `reindex()`
+#### 행 인덱스 재배열 :  `.reindex()`
 
 ```python
-df객체.reindex( 새로운 인덱스 배열 )
+df객체.reindex( 새로운 인덱스 배열,
+            	fill_value = 0 )    # 추가한 행의 NaN 값을 다른 값으로 채울때 fill_value 옵션 사용 
 ```
 
+#### 행 인덱스를 정수형으로 초기화 :  `.reset_index()`
 
+```python
+df객체.reset_index( inplace = False )    # inplace : 원본 객체에 변경사항 반영할지 결졍하는 옵션
+```
 
+#### 행 인덱스를 기준으로 DataFrame 정렬 :  `.sort_index()`
 
+```python
+df객체.sort_index( ascending = True,    # 오름차순/내림차순 옵션
+                   inplace = False )    # inplace : 원본 객체에 변경사항 반영할지 결졍하는 옵션
+```
+
+#### 특정 열의 데이터 값을 기준으로 DataFrame 정렬 :  `.sort_values()`
+
+```python
+df객체.sort_values( by = '열 이름',
+                    ascending = True,    # 오름차순/내림차순 옵션
+                    inplace = False )    # inplace : 원본 객체에 변경사항 반영할지 결졍하는 옵션
+```
+
+.
 
 ## 3.산술연산
 
