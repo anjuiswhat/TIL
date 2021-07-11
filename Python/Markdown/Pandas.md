@@ -23,10 +23,10 @@ pandas.Series( 리스트,
 
 ```python
 # 인덱스 배열 선택
-Series객체.index
+series객체.index
 
 # 데이터 값 배열
-Series객체.values
+series객체.values
 ```
 
 #### 원소 선택
