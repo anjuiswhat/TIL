@@ -135,7 +135,7 @@ plot(tapply(Cars93$Weight, Cars93$Length, mean), xlab="Length", ylab="Weight", c
 # 그래프 배열 설정
 par(mfrow=c(1,2))
 
-# 그래프 생
+# 그래프 생성
 plot(Cars93$Length, Cars93$Weight, main="Cars93", xlab="Length", ylab="Weight",
      xlim=c(130,230), ylim=c(1600,4400), cex=0.5)
 
@@ -235,6 +235,8 @@ lines(lowess(cars))
 
 ##===== A)
 # plot함수를 이용해 cars데이터에 대한 산점도 생성
+cars
+
 plot(cars, ylim=c(0,130), xlim=c(0,30), main="cars data")
 
 # speed와 dist 사이의 선형회귀모형 생성
